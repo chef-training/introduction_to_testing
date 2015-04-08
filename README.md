@@ -143,6 +143,19 @@ StringLiterals:
 
 When Rubocop is executed the next time it will evaluate the overrides within this file and ensures to enable, disable, and/or augument the rules that are defined.
 
+Defining the initial set of rules, as we did in the file above, may not be comprehensive. There may be more "issues" that Rubocop is alerting to you that you would like to ignore initially or completely. Rubocop allows you to capture the current state of all the offences and write them to a file that you can accept as your core rules.
+
+```bash
+$ rubocop --auto-gen-config
+```
+
+This will generate a file named `.rubocop_todo.yml`. You can simply rename this file as `.rubocop.yml` if you want to accept it as the new cookbook standards.
+
+Often times this file is generated as a list of items you want to review one-at-a-time. This is why the file is named `.rubocop_todo.yml`. Instead of renaming this file you can define a `.rubocop.yml` that includes this file as well.
+
+```yaml
+inherit_from: .rubocop_todo.yml
+```
 
 ## Foodcritic
 
