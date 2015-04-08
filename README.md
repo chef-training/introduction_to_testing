@@ -2,7 +2,7 @@
 
 ## Introductions
 
-The purpose of introductions is two-fold. 
+The purpose of introductions is two-fold.
 
 First to get to know the audience. Try to assess interests, skill level, and motivation for learning Chef so you can later maintain a consistent level of engagement.
 
@@ -12,7 +12,7 @@ Second to allow for the attendees to become more comfortable with the individual
 
 The attendee will leave this workshop with a basic understanding Chef's core testing and linting tools and ensure they have a workstation with all necessary tools installed.
 
-The course is a mixture of lecture, exercise, and conversation. Each section the instructor will walk the attendees through a technical challenge by providing them the explanations, demonstration, and source code. The instructor will also present exercises, without walk-through, that the attendees will accomplish. The instructor will lead the attendees through various discussions that reinforce good practices and understanding the underlying technology. 
+The course is a mixture of lecture, exercise, and conversation. Each section the instructor will walk the attendees through a technical challenge by providing them the explanations, demonstration, and source code. The instructor will also present exercises, without walk-through, that the attendees will accomplish. The instructor will lead the attendees through various discussions that reinforce good practices and understanding the underlying technology.
 
 ## Cookbook Style and Correctness
 
@@ -54,9 +54,99 @@ During this workshop the attendee will demonstrate this new cookbook workflow th
 * Unit Tests - ChefSpec
 * Integration Tests - Test Kitchen with ServerSpec
 
+## Rubocop
+
+The majority of the time you are working with Chef you are writing ruby code. Most every file within a cookbook is a ruby file - the metadata, recipes, attributes and any source that you have defined in the libraries folder.
+
+Rubocop is a first tool to assist you with writing cleaner cookbooks. It is a style and linting tool that anaylyzes the ruby code you've defined against a number of 'cops'. Each of these cops examines the code with a different perspective and produces a list of of warnings, deviations from conventions, potentional errors, and fatal errors.
+
+* Enforces style conventions
+* Enforces best practices within Ruby
+* Evaluate the code against metrics (e.g. line length, function size)
+
+Style and linting tools such as provide automated ways to ensure that everyone on the team writes similarly structured source code. Ensuring the uniformity of source code helps set the expectations for new and old committers on the project. They are more easily able to reason about the overall goal of the source code if they are spending less time attempting to understand what is written. This is useful as well when you want to bring more individuals into the code review process.
+
+This tool is built for Ruby developers and the conventions that it attempts to enforce are those defined by the community of Ruby developers that work with the project.  As cookbook authors we do not always have the same objectives as Ruby developers but there is enough of an overlap that the tool is beneficial.
+
+Rubocop allows you to turn on, turn off, and create your own cops to assist you with enforcing the standards defined by your team.
+
+Rubocop is a command-line application that is executed against a specified path (normally a cookbook).
+
+```bash
+$ rubocop webcookbook
+```
+
+While developing cookbooks with tests and using linting tools it is often the case you will find yourself executing this command inside the directory of the cookbook.
+
+```bash
+$ rubocop .
+```
+
+Rubocop will return to you, via standard out, the results of the evaluation. This is a list of all the warnings, violations of conventions, code needing refactoring, warnings, errors, and fatal issues.
+
+```
+Inspecting 8 files
+CWCWCCCC
+
+Offences:
+
+cookbooks/apache/attributes/default.rb:1:1: C: Missing utf-8 encoding comment.
+default["apache"]["indexfile"] = "index1.html"
+^
+cookbooks/apache/attributes/default.rb:1:9: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+default["apache"]["indexfile"] = "index1.html"
+        ^^^^^^^^
+cookbooks/apache/attributes/default.rb:1:19: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+default["apache"]["indexfile"] = "index1.html"
+                  ^^^^^^^^^^^
+```
+
+The results start with a summary describing the number of ruby files that found and examined. Next it displays the results of each of those files as a series of symbols or letters.
+
+* `.` means that the file contains no issues
+* `C` means a issue with convention
+* `W` means a warning
+* `E` means an error
+* `F` means an fatal error
+
+After the summary each of the offences are displayed in the following format:
+
+```
+FILENAME:LINE_NUMBER:CHARACTER_NUMBER: TYPE_OF_ERROR: MESSAGE
+SOURCE CODE
+^ (<- that carrot indicates the location within the source where the issue was detected)
+```
+
+Rubocop is executed with the following default set of rules: https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml. There are a number of rules that are disabled by default https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml.
+
+Rubocop feedback can sometimes feel not very helpful because it usually focuses on spaces, parenthesis, and other minutia within the language. Chef itself generates source code for you within cookbooks that will generate various issues to fix.
+
+To assist you with maximizing the effectiveness of the tool you are able to configure the various cops to ensure that the tool focuses on the conventions that you feel are important. You also have the ability to disable the cops that you never want executed.
+
+We define these rules and exceptions on a per cookbook basis, though they are often the same across all our cookbooks. Within a particular cookbook you are allowed to define a file named `.rubocop.yml` file. In this file you specify the name of the rule. You specify overriding parameters if necessary. You specify whether the rule should be enabled.
+
+This is an example of a common `.rubocop.yml` for Chef cookbooks.
+
+```
+AlignParameters:
+  Enabled: false
+
+Encoding:
+  Enabled: false
+
+LineLength:
+  Max: 200
+
+StringLiterals:
+  Enabled: false
+```
+
+When Rubocop is executed the next time it will evaluate the overrides within this file and ensures to enable, disable, and/or augument the rules that are defined.
+
+
 ## Foodcritic
 
-Foodcritic is the first tool to assist you with writing cleaner cookbooks. It is a lint-like tool because it analyzes the code specified and returns a list of violations.
+Foodcritic is the second tool to assist you with writing cleaner cookbooks. It is a lint-like tool because it analyzes the code specified and returns a list of violations.
 
 * Enforces specific behaviors
 * Detects portability of your recipes
@@ -82,7 +172,7 @@ It is command-line application that is executed against a single cookbook path.
 $ foodcritic web
 ```
 
-While developing cookbooks with tests and using linting tools it is often the case you will find yourself executing this command, with others, inside the directory of the cookbook.
+While developing cookbooks with tests and using linting tools it is often the case you will find yourself executing this command inside the directory of the cookbook.
 
 ```bash
 $ foodcritic .
@@ -136,7 +226,7 @@ You can also define your own rules or import them. An example of that are the ru
 ### [Foodcritic](http://www.foodcritic.io/)
 
 > Foodcritic is a helpful lint tool you can use to check your Chef cookbooks for common problems.
-> 
+>
 > It comes with 47 built-in rules that identify problems ranging from simple style inconsistencies to difficult to diagnose issues that will hurt in production.
 >
 > Various nice people in the Chef community have also written extra rules for foodcritic that you can install and run. Or write your own!
@@ -144,8 +234,6 @@ You can also define your own rules or import them. An example of that are the ru
 ### [Lint](http://en.wikipedia.org/wiki/Lint_%28software%29)
 
 In computer programming, lint was the name originally given to a particular program that flagged some suspicious and non-portable constructs (likely to be bugs) in C language source code. The term is now applied generically to tools that flag suspicious usage in software written in any computer language. The term lint-like behavior is sometimes applied to the process of flagging suspicious language usage. Lint-like tools generally perform static analysis of source code.
-
-## Rubocop
 
 ## Test Kitchen
 
