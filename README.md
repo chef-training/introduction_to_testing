@@ -363,7 +363,17 @@ RSpec has many different forms of output. The default is called the 'progress' f
 * '.' - represents a passing example
 * 'F' - represents a failing example
 
-> TODO: Talk about reading the error messages
+Upon completion of the run if there are any failures they will be displayed. Failures are numbered and use the language from the test file as the description of the failure.
+
+After the description the error will be displayed to you. It often times repeats the expectation that you have defined. Then it will show you the expected value and the got (the value that came back from the execution) value.
+
+The position of the failure will be displayed by outputting the file name followed by the line number.
+
+RSpec also represents the failures again as commands you could execute if you wanted to run a specific test again. To do this you need to specify the file name and a line number. The line number is any line within the defined example ('it' block).
+
+```
+$ rspec ./spec/unit/default_spec.rb:29
+```
 
 RSpec has a different format outputter that displays more text. It's called the 'documentation' formatter and you can enable it from the command line with `-f documentation` or the shorter format `-f d`.
 
@@ -376,6 +386,20 @@ You can also enable color in the output with the flag `--color` or `-c`. This wi
 
 ChefSpec also provides the ability to provide coverage. Coverage is a measure of all the resources your examples are able to touch through testing divided by the the total number of resources that could be tested. This results in a fractional value that is represented as a percentage.
 
+To enable coverage we need to ask for ChefSpec::Coverage to yield the report when the test run is complete. This is done by adding the following source to each of your test files.
+
+```ruby
+require 'chefspec'
+at_exit { ChefSpec::Coverage.report! }
+```
+
+Every test file would need to repeat this content so instead we will write this into a helper file - `spec/spec_helper.rb`. Now in each of our test files we instead require the spec_helper.rb file.
+
+```ruby
+require 'spec_helper'
+```
+
+There are for more helpers and other things to learn about ChefSpec. The best thing is to read the project [README](https://github.com/sethvargo/chefspec) and review the large set of [examples](https://github.com/sethvargo/chefspec/tree/master/examples).
 
 ## Test Kitchen
 
