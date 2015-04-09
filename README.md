@@ -248,10 +248,137 @@ You can also define your own rules or import them. An example of that are the ru
 
 In computer programming, lint was the name originally given to a particular program that flagged some suspicious and non-portable constructs (likely to be bugs) in C language source code. The term is now applied generically to tools that flag suspicious usage in software written in any computer language. The term lint-like behavior is sometimes applied to the process of flagging suspicious language usage. Lint-like tools generally perform static analysis of source code.
 
+## ChefSpec
+
+ChefSpec provides a framework for performing tests on the recipes that you write. These tests execute fast and give you feedback fast when there are problems that need to be fixed in your cookbook. Fast feedback allows you to build cookbooks confidently because it gives you a way to exercise these cookbooks in a virtualized way. This feedback is especially important when you add functionality or refactor your recipes as it will ensure your new changes don't break the previous functionality you wrote before and depend on working tomorrow.
+
+Similar to Chef being a Domain Specific Language (DSL) written on top of Ruby there are many other tools that use this same paradigm. ChefSpec is one such tool. ChefSpec is built on top of a DSL named RSpec. And RSpec is a testing framework that is built on top of Ruby.
+
+> RSpec is a popular testing framework that was born out of the Behavior Driven Development (BDD) approach that became popular with Agile and everything else that has turned software development on its head.
+
+RSpec, as a BDD framework, attempts to use more natural language to help you quickly describe scenarios in which systems are being tested.
+
+```ruby
+describe "Math" do
+
+  context "when adding 1 + 1" do
+    it "equals 2" do
+      expect(1 + 1).to eq(2)
+    end
+  end
+
+end
+```
+
+This is a test, or specification, that is written in pure RSpec. RSpec provides several important keywords that allow you describe the scenarios you want to examine in your tests.
+
+* `describe` - allows us to describe the subject or the title of the thing that we are testing. For our test the name 'Math' is not important other than to give us a parent heading to give us guidance on the examples we are writing.
+
+* `context` - this is an alias of the `describe`. It cannot however be used as a top-level item. The reason for nesting a `context` or `describe` is to further refine your tests by creating a group of specific tests for a given scenario. The rule to use when considering if you should create is a context: If you are thinking to yourself ... when I am on this platform ... and when I'm on that platform ... -- then consider using a context.
+
+
+```ruby
+describe "cookbook_name::recipe_name" do
+
+  context "when on Debian" do
+    it "installs the correct packages"
+  end
+
+  context "when on Ubuntu" do
+    it "installs the correct packages"
+  end
+
+  context "when on Windows" do
+    it "installs the correct packages"
+  end
+end
+```
+
+* `it` - defines the examples or tests that we are writing. Inside the body of the `it` block is where we setup the state of our test, take action by executing methods on our objects, and then making assertions to verify that the system is in the state we believe it to be in.
+
+```ruby
+
+it "equals 2" do
+  # Assign
+  a = 1
+  b = 1
+  # Act
+  sum = a + b
+  # Assert
+  expect(sum).to eq(2)
+end
+
+it "equals 2" do
+  expect(1 + 1).to eq(2)
+end
+```
+
+* `let` - defines a helper method that is executed the first time it is invoked and then the value is stored for all subsequent requests within the same test. You may think about this similar to a cache-miss, load and then a cache-hit. The value is reset for each example to ensure tests are run in isolation.
+
+ChefSpec brings the knowledge of Chef to RSpec specifically it:
+
+* Allows you to simulate a chef-client run against a Server or in a Solo environment
+* Allows you to reference the recipe name in the parent `descrbed` with the variable `described_recipe`
+* Allows you to setup expectations against Chef core resources
+
+```ruby
+require 'chefspec'
+
+describe 'apache::default' do
+  let(:chef_run) do
+    ChefSpec::ServerRunner.new.converge(described_recipe)
+  end
+
+  it 'installs apache2' do
+    expect(chef_run).to install_package('httpd')
+  end
+end
+```
+
+Here we define a simulated Server Runner named `ChefSpec::ServerRunner` and we ask it to converage the default recipe for the apache cookbook. We return that value any time we request the `chef_run` within our examples.
+
+The `described_recipe` is in reference to the recipe name specified in the topmost describe string. In this instance it is the 'apache::default'. This helper saves you from repeating the recipe name throughout the test file.
+
+Within the example 'installs apache2' you see that we have defined an expectation on the `chef_run` to install the package named 'httpd'. This is one of the many expectations that ChefSpec provides.
+
+The format of these expectations:
+
+```
+expect(chef_run).to ACTION-NAME_RESOURCE-TYPE(RESOURCE-NAME)
+```
+
+You will define tests per cookbook and store them in a directory named `spec/unit`. A test file is a ruby file that ends with `_spec.rb`. You define a test file for each of the recipes that you have defined. The name of the recipe, e.g. `recipes/default.rb`, would have a matching test file named `spec/unit/default_spec.rb`.
+
+RSpec is a command-line application that runs tests files. You need to execute RSpec within your cookbook. It will raise an error if you attempt to run the application from any other directory but the cookbook directory.
+
+```bash
+$ cd cookbooks/COOKBOOK_NAME
+$ rspec
+```
+
+> This will likely represent itself as an error related to issues with `require 'spec_helper'`. It is a Ruby load path issue. When RSpec runs it adds a few directories onto the load path (i.e. 'lib', 'spec'). So when you are in the directory of a cookbook all the files within that 'spec' directory can be required without any additional paths (i.e. `require 'spec_helper'`).
+
+RSpec has many different forms of output. The default is called the 'progress' format and the output looks and reads similar to rubocop and foodcritic.
+
+* '.' - represents a passing example
+* 'F' - represents a failing example
+
+> TODO: Talk about reading the error messages
+
+RSpec has a different format outputter that displays more text. It's called the 'documentation' formatter and you can enable it from the command line with `-f documentation` or the shorter format `-f d`.
+
+```bash
+$ rspec -f documentation
+$ rspec -f d
+```
+
+You can also enable color in the output with the flag `--color` or `-c`. This will display passing examples in green and failing examples in red.
+
+ChefSpec also provides the ability to provide coverage. Coverage is a measure of all the resources your examples are able to touch through testing divided by the the total number of resources that could be tested. This results in a fractional value that is represented as a percentage.
+
+
 ## Test Kitchen
 
 ## ServerSpec
-
-## ChefSpec
 
 ## Workstation Setup
