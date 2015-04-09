@@ -27,17 +27,17 @@ It is important to validate that our cookbooks work. In an test-free environment
 * Deploy the cookbook to production environment
 * Perform ad-hoc verification
 
-This workflow is sustainable for developing software if know for certain that you are never going to change the cookbook source code. In isolation, cookbooks with small goals on new systems are easy to reason what the recipes will install and the effects it will have on the system.
+This workflow is sustainable for developing software if you know for certain that you are never going to change the cookbook source code. In isolation, cookbooks with small goals on new systems are easy to reason what the recipes will install and the effects it will have on the system.
 
 > This is often the crux of demonstrating testing tools and practices. The code or systems are reasonable. Asking you to write tests for a completely reasonable system feels often like wearing a belt and suspenders -- extra work without a lot of benefit. The benefit is often not felt until the system starts to become unreasonable and adding tests then often feels too difficult.
 
-But it seldom that our cookbooks maintain small goals on new systems. We are often confronted with the complexity that originally brought us to use configuration management in the beginning.
+But it is seldom that our cookbooks maintain small goals on new systems. We are often confronted with the complexity that originally brought us to seek out configuration management in the beginning.
 
 Testing and a testing practice will help you better understand the system that you are building. It will make the code that you write more realible. And when something breaks (which it still will break) the errors will shift from your lack understanding of your objective and instead be related to the environment in which the code integrates with other code.
 
-Testing is about understanding and verifying your intent of the code that you wrote. The tests will provide an automated way of ensure you don't lose sight of your goals. This becomes important as you invite new members to your team to assist you with development. Tests will help you understand code written by other team members. Tests will even help you when you return to code you have not seen in months or years.
+Testing is about understanding and verifying the intent of the code that you wrote. The tests will provide an automated way of ensure you don't lose sight of your goals. This becomes important as you invite new members to your team to assist you with development. Tests will help you understand code written by other team members. Tests will even help you when you return to code you have not seen in months or years.
 
-In the same way that writing Chef recipes to capture the state of your infrastructure. Testing and linting tools will assist in ensuring that you have defined the correct infrastructure.
+In the same way that writing Chef recipes capture the state of your infrastructure. Testing and linting tools will assist in ensuring that you have defined the correct infrastructure.
 
 ### New Cookbook Workflow
 
@@ -48,7 +48,7 @@ In the same way that writing Chef recipes to capture the state of your infrastru
 * Perform checks to ensure correctness with integration tests
 * Deploy the cookbook to production environment
 
-During this workshop the attendee will demonstrate this new cookbook workflow through the use of following tools:
+During this workshop we will demonstrate this new cookbook workflow through the use of following tools:
 
 * Code Correctness - Foodcritic and Rubocop
 * Unit Tests - ChefSpec
@@ -64,7 +64,9 @@ Rubocop is a first tool to assist you with writing cleaner cookbooks. It is a st
 * Enforces best practices within Ruby
 * Evaluate the code against metrics (e.g. line length, function size)
 
-Style and linting tools such as provide automated ways to ensure that everyone on the team writes similarly structured source code. Ensuring the uniformity of source code helps set the expectations for new and old committers on the project. They are more easily able to reason about the overall goal of the source code if they are spending less time attempting to understand what is written. This is useful as well when you want to bring more individuals into the code review process.
+Style and linting tools provide automated ways to ensure that everyone on the team writes similarly structured source code. Ensuring the uniformity of source code helps set the expectations for fellow project contributors.
+
+New and existing contributors are more easily able to reason about the overall goal of the source code if they are spending less time attempting to understand what is written. This is useful when you want to bring more individuals into the code review process as you will be able to spend more time on the objective of the source and less time on the look of the code.
 
 This tool is built for Ruby developers and the conventions that it attempts to enforce are those defined by the community of Ruby developers that work with the project.  As cookbook authors we do not always have the same objectives as Ruby developers but there is enough of an overlap that the tool is beneficial.
 
@@ -82,7 +84,7 @@ While developing cookbooks with tests and using linting tools it is often the ca
 $ rubocop .
 ```
 
-Rubocop will return to you, via standard out, the results of the evaluation. This is a list of all the warnings, violations of conventions, code needing refactoring, warnings, errors, and fatal issues.
+Rubocop will return to you, via standard out, the results of the evaluation. This is a list of all the warnings, violations of conventions, code needing refactoring, errors, and fatal issues.
 
 ```
 Inspecting 8 files
@@ -117,13 +119,19 @@ SOURCE CODE
 ^ (<- that carrot indicates the location within the source where the issue was detected)
 ```
 
-Rubocop is executed with the following default set of rules: https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml. There are a number of rules that are disabled by default https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml.
+Rubocop feedback can sometimes feel not very helpful. This is because the majority of the raised issues will be related to style and formatting (e.g. spaces, parenthesis, and other minutia within the language).
 
-Rubocop feedback can sometimes feel not very helpful because it usually focuses on spaces, parenthesis, and other minutia within the language. Chef itself generates source code for you within cookbooks that will generate various issues to fix.
+> Even some of the files (e.g. metadata.rb) the Chef tools generate will immediately raise issues when reviewed by Rubocop.
 
-To assist you with maximizing the effectiveness of the tool you are able to configure the various cops to ensure that the tool focuses on the conventions that you feel are important. You also have the ability to disable the cops that you never want executed.
+Rubocop is executed with the following default set of enabled [rules](https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml). There are also a number of [disabled rules](https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml).
 
-We define these rules and exceptions on a per cookbook basis, though they are often the same across all our cookbooks. Within a particular cookbook you are allowed to define a file named `.rubocop.yml` file. In this file you specify the name of the rule. You specify overriding parameters if necessary. You specify whether the rule should be enabled.
+To assist you with maximizing the effectiveness of the tool you are able to configure the various cops to ensure that the tool focuses on the conventions that you feel are important. This may mean completely disabling a cop that you feel is not important to your cookbook and not a standard you would like to adopt as a team.
+
+Eech cookbook you create can have its own custom set of enabled, disabled, and configured cops.
+
+> While you are able to define different rubocop rules per cookbook often times all your cookbooks within your organization will share the same rules.
+
+Within a particular cookbook you define a YAML (YAML Ain't Markup Language) file named `.rubocop.yml`. YAML files are white-space significant formatted file, like python.
 
 This is an example of a common `.rubocop.yml` for Chef cookbooks.
 
@@ -141,15 +149,31 @@ StringLiterals:
   Enabled: false
 ```
 
-When Rubocop is executed the next time it will evaluate the overrides within this file and ensures to enable, disable, and/or augument the rules that are defined.
+Within the example file we disabled a number of cops that are enabled by default. We also overrode the value of the LineLength to allow for us to write source code lines up to 200 characters without raising an error (defaults to 80).
 
-Defining the initial set of rules, as we did in the file above, may not be comprehensive. There may be more "issues" that Rubocop is alerting to you that you would like to ignore initially or completely. Rubocop allows you to capture the current state of all the offences and write them to a file that you can accept as your core rules.
+Each entry within the file adheres to the following format:
+
+```
+NAME_OF_COP:
+  Enabled : (true or false)
+  PARAMETER_KEY: PARAMETER_VALUE
+```
+
+* NAME_OF_COP - The name of the cop that is being described.
+
+* Enabled: (true or false) - This is where you can set the cop enabled or disabled. The default enabled setting is set to true for cops defined in the default [enabled](https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml) file and false for cops defined in the default [disabled](https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml) file.
+
+* PARAMETER_KEY: PARAMETER_VALUE - define the parameters specific to the cop that is being applied. These values are dependent on the cops and not all cops have additional parameters to set.
+
+When Rubocop is executed against a cookbook the default enabled and disabled cops are loaded and then the Rubocop YAML file is evaluated. This allows you to customize the cops that are defined.
+
+There may be more "issues" that Rubocop is alerting to you that you would like to ignore initially or completely. Rubocop allows you to capture the current state of all the offences and write them to a file that you can accept as your core rules.
 
 ```bash
 $ rubocop --auto-gen-config
 ```
 
-This will generate a file named `.rubocop_todo.yml`. You can simply rename this file as `.rubocop.yml` if you want to accept it as the new cookbook standards.
+This generates a file named `.rubocop_todo.yml`. You can simply rename this file as `.rubocop.yml` if you want to accept it as the rubocop standard for the cookbook.
 
 Often times this file is generated as a list of items you want to review one-at-a-time. This is why the file is named `.rubocop_todo.yml`. Instead of renaming this file you can define a `.rubocop.yml` that includes this file as well.
 
@@ -182,12 +206,13 @@ Foodcritic can provide feedback for each of your cookbooks against:
 It is command-line application that is executed against a single cookbook path.
 
 ```bash
-$ foodcritic web
+$ foodcritic cookbooks/web
 ```
 
 While developing cookbooks with tests and using linting tools it is often the case you will find yourself executing this command inside the directory of the cookbook.
 
 ```bash
+$ cd cookbooks/web
 $ foodcritic .
 ```
 
@@ -218,9 +243,7 @@ FC003: Check whether you are running with chef server before using server-specif
 
 The message desribes the steps to remediation. However, this message is likely only useable to someone that has spent quite a bit of time with Foodcritic. Until then the message is at best a useful hint at how to proceed.
 
-The [website](http://www.foodcritic.io/) itself describes each of the violations in more detail. Given a rule number the website provides additional details about the rule, the categories where the rule belongs, the reasoning behind it, example code that violates the rule and example code that adheres to the rule.
-
-In our previous example, [FC003](http://www.foodcritic.io/#FC003), it explains the issue in more detail.
+The [website](http://www.foodcritic.io/) itself describes each of the violations in more detail. Given a rule number the website provides additional details about the rule, the categories where the rule belongs, the reasoning behind it, example code that violates the rule and example code that provides a remedy to the rule.
 
 When you violate a rule it does not automatically mean that the offending code needs to be changed. It is important to understand the rule and its intentions.
 
@@ -235,14 +258,6 @@ $ foodcritic . --tags ~FC003
 > Be aware that your rules you reject for your cookbooks may make it hard to use your cookbook in scenarios that you did not imagine. This is important to remember if you decide to share your cookbook with another team or the open-source community.
 
 You can also define your own rules or import them. An example of that are the rules defined by [Etsy](https://github.com/etsy/foodcritic-rules).
-
-### [Foodcritic](http://www.foodcritic.io/)
-
-> Foodcritic is a helpful lint tool you can use to check your Chef cookbooks for common problems.
->
-> It comes with 47 built-in rules that identify problems ranging from simple style inconsistencies to difficult to diagnose issues that will hurt in production.
->
-> Various nice people in the Chef community have also written extra rules for foodcritic that you can install and run. Or write your own!
 
 ### [Lint](http://en.wikipedia.org/wiki/Lint_%28software%29)
 
@@ -428,7 +443,7 @@ $ kitchen help init
 $ kitchen init
 ```
 
-The `.kitchen.yml` file is a YAML (YAML Ain't Markup Language) file. It is white-space significant formatted file, like python. The kitchen YAML, as its often called, allows for us to configure the way that test kitchen will operate as well as define our test matrix.
+The `.kitchen.yml` file is a YAML file. It is white-space significant formatted file, like python. The kitchen YAML, as its often called, allows for us to configure the way that test kitchen will operate as well as define our test matrix.
 
 ```
 ---
