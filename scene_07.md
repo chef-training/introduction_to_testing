@@ -1,6 +1,6 @@
 ## Foodcritic
 
-Foodcritic is command-line application that is executed against a specified path. The path provided to the application usually the name of a specific cookbook.
+Foodcritic is command-line application that is executed against a specified path. The path provided to the application is usually the path to a specific cookbook.
 
 ```bash
 $ foodcritic cookbooks/setup
@@ -78,3 +78,5 @@ When you have defined your complete set of tag options you are able to save them
 ```
 $ echo "style,services" > my_cookbook/.foodcritic
 ```
+
+You can also define your own rules or import them. An example of that are the rules defined by [Etsy](https://github.com/etsy/foodcritic-rules).

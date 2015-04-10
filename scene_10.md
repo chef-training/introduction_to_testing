@@ -1,0 +1,5 @@
+## ChefSpec - Intro
+
+ChefSpec provides a framework for performing tests on the recipes that you write. These tests execute fast and give you feedback fast when there are problems that need to be fixed in your cookbook. Fast feedback allows you to build cookbooks confidently because it gives you a way to exercise these cookbooks in a virtualized way. This feedback is especially important when you add functionality or refactor your recipes as it will ensure your new changes don't break the previous functionality you wrote before and depend on working tomorrow.
+
+Similar to Chef being a Domain Specific Language (DSL) written on top of Ruby there are many other tools that use this same paradigm. ChefSpec is one such tool. ChefSpec is built on top of a DSL named RSpec. And RSpec is a testing framework that is built on top of Ruby.
