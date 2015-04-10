@@ -1,4 +1,3 @@
-
 ## The Importance of Cookbook Style and Correctness
 
 It is important that the cookbooks you develop work! Developing cookbooks in an environment without testing pushes the moment of cookbook validation into our integration environments or into our production environments.
@@ -29,7 +28,8 @@ An updated workflow, one able to manage risk better, involves these tools throug
 
 This workflow gives us consistent, automated feedback at each stage of cookbook development. By employing linting and testing tools we are able to more confidently deliver code because these tools will help us better understand the cookbooks that you are building.
 
-Linting tools provide automated ways to ensure that the code we write adheres to conventions that ensure code uniformity, portability, and uses best practices.
+Linting tools provide automated ways to ensure that the code we write adheres to conventions that ensure code uniformity, portability, and uses best practices. This ensures everyone on the team writes similarly structured source code. Ensuring the uniformity of source code helps set the expectations for fellow project contributors.
+
 
 Testing tools provide automated ways to ensure that the code we write accomplishes its intended goal. It also helps us understand the intent of our code by providing executable documentation - as tests are able to run in virtualized environments.
 

@@ -8,137 +8,20 @@ First to get to know the audience. Try to assess interests, skill level, and mot
 
 Second to allow for the attendees to become more comfortable with the individuals that also participating in the workshop. Attendees in the workshop often share similar motivations and skill levels so it this is a great opportunity to start to foster a sense of a cohert. Allowing each of the attendees to feel comfortable asking each other questions and assistance.
 
-## [Scene 01](scene_01.md) - The Importance of Cookbook Style and Correctness
+## [01](scene_01.md) The Importance of Cookbook Style and Correctness
 
+## [02](scene_02.md) Rubocop - Intro
 
-## Rubocop
+## [03](scene_03.md) Rubocop
 
-The majority of the time you are working with Chef you are writing ruby code. Most every file within a cookbook is a ruby file - the metadata, recipes, attributes and any source that you have defined in the libraries folder.
+## [04](scene_04.md) Rubocop - Exercise
 
-Rubocop is a first tool to assist you with writing cleaner cookbooks. It is a style and linting tool that anaylyzes the ruby code you've defined against a number of 'cops'. Each of these cops examines the code with a different perspective and produces a list of of warnings, deviations from conventions, potentional errors, and fatal errors.
+## [05](scene_05.md) Rubocop - Summary
 
-* Enforces style conventions
-* Enforces best practices within Ruby
-* Evaluate the code against metrics (e.g. line length, function size)
-
-Style and linting tools provide automated ways to ensure that everyone on the team writes similarly structured source code. Ensuring the uniformity of source code helps set the expectations for fellow project contributors.
-
-New and existing contributors are more easily able to reason about the overall goal of the source code if they are spending less time attempting to understand what is written. This is useful when you want to bring more individuals into the code review process as you will be able to spend more time on the objective of the source and less time on the look of the code.
-
-This tool is built for Ruby developers and the conventions that it attempts to enforce are those defined by the community of Ruby developers that work with the project.  As cookbook authors we do not always have the same objectives as Ruby developers but there is enough of an overlap that the tool is beneficial.
-
-Rubocop allows you to turn on, turn off, and create your own cops to assist you with enforcing the standards defined by your team.
-
-Rubocop is a command-line application that is executed against a specified path (normally a cookbook).
-
-```bash
-$ rubocop webcookbook
-```
-
-While developing cookbooks with tests and using linting tools it is often the case you will find yourself executing this command inside the directory of the cookbook.
-
-```bash
-$ rubocop .
-```
-
-Rubocop will return to you, via standard out, the results of the evaluation. This is a list of all the warnings, violations of conventions, code needing refactoring, errors, and fatal issues.
-
-```
-Inspecting 8 files
-CWCWCCCC
-
-Offences:
-
-cookbooks/apache/attributes/default.rb:1:1: C: Missing utf-8 encoding comment.
-default["apache"]["indexfile"] = "index1.html"
-^
-cookbooks/apache/attributes/default.rb:1:9: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
-default["apache"]["indexfile"] = "index1.html"
-        ^^^^^^^^
-cookbooks/apache/attributes/default.rb:1:19: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
-default["apache"]["indexfile"] = "index1.html"
-                  ^^^^^^^^^^^
-```
-
-The results start with a summary describing the number of ruby files that found and examined. Next it displays the results of each of those files as a series of symbols or letters.
-
-* `.` means that the file contains no issues
-* `C` means a issue with convention
-* `W` means a warning
-* `E` means an error
-* `F` means an fatal error
-
-After the summary each of the offences are displayed in the following format:
-
-```
-FILENAME:LINE_NUMBER:CHARACTER_NUMBER: TYPE_OF_ERROR: MESSAGE
-SOURCE CODE
-^ (<- that carrot indicates the location within the source where the issue was detected)
-```
-
-Rubocop feedback can sometimes feel not very helpful. This is because the majority of the raised issues will be related to style and formatting (e.g. spaces, parenthesis, and other minutia within the language).
-
-> Even some of the files (e.g. metadata.rb) the Chef tools generate will immediately raise issues when reviewed by Rubocop.
-
-Rubocop is executed with the following default set of enabled [rules](https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml). There are also a number of [disabled rules](https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml).
-
-To assist you with maximizing the effectiveness of the tool you are able to configure the various cops to ensure that the tool focuses on the conventions that you feel are important. This may mean completely disabling a cop that you feel is not important to your cookbook and not a standard you would like to adopt as a team.
-
-Eech cookbook you create can have its own custom set of enabled, disabled, and configured cops.
-
-> While you are able to define different rubocop rules per cookbook often times all your cookbooks within your organization will share the same rules.
-
-Within a particular cookbook you define a YAML (YAML Ain't Markup Language) file named `.rubocop.yml`. YAML files are white-space significant formatted file, like python.
-
-This is an example of a common `.rubocop.yml` for Chef cookbooks.
-
-```
-AlignParameters:
-  Enabled: false
-
-Encoding:
-  Enabled: false
-
-LineLength:
-  Max: 200
-
-StringLiterals:
-  Enabled: false
-```
-
-Within the example file we disabled a number of cops that are enabled by default. We also overrode the value of the LineLength to allow for us to write source code lines up to 200 characters without raising an error (defaults to 80).
-
-Each entry within the file adheres to the following format:
-
-```
-NAME_OF_COP:
-  Enabled : (true or false)
-  PARAMETER_KEY: PARAMETER_VALUE
-```
-
-* NAME_OF_COP - The name of the cop that is being described.
-
-* Enabled: (true or false) - This is where you can set the cop enabled or disabled. The default enabled setting is set to true for cops defined in the default [enabled](https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml) file and false for cops defined in the default [disabled](https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml) file.
-
-* PARAMETER_KEY: PARAMETER_VALUE - define the parameters specific to the cop that is being applied. These values are dependent on the cops and not all cops have additional parameters to set.
-
-When Rubocop is executed against a cookbook the default enabled and disabled cops are loaded and then the Rubocop YAML file is evaluated. This allows you to customize the cops that are defined.
-
-There may be more "issues" that Rubocop is alerting to you that you would like to ignore initially or completely. Rubocop allows you to capture the current state of all the offences and write them to a file that you can accept as your core rules.
-
-```bash
-$ rubocop --auto-gen-config
-```
-
-This generates a file named `.rubocop_todo.yml`. You can simply rename this file as `.rubocop.yml` if you want to accept it as the rubocop standard for the cookbook.
-
-Often times this file is generated as a list of items you want to review one-at-a-time. This is why the file is named `.rubocop_todo.yml`. Instead of renaming this file you can define a `.rubocop.yml` that includes this file as well.
-
-```yaml
-inherit_from: .rubocop_todo.yml
-```
-
-## Foodcritic
+## [06](scene_06.md) Foodcritic - Intro
+## [07](scene_07.md) Foodcritic
+## [08](scene_08.md) Foodcritic - Exercise
+## [09](scene_09.md) Foodcritic - Summary
 
 Foodcritic is the second tool to assist you with writing cleaner cookbooks. It is a lint-like tool because it analyzes the code specified and returns a list of violations.
 
