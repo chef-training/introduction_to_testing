@@ -4,11 +4,10 @@
 
 Rubocop is part of the standard set of utilities included with the Chef Development Kit. 
 
-// Do we need to explain how to get Rubocop for folks not using Chef DK
 
 ### Using Rubocop
 
-Rubocop is a command-line application that is executed against a specified path. To test a complete cookbook, supply a path that is the name of the specific cookbook. 
+Rubocop is a command-line application that checks your ruby code. Generally you want to specify a specific path as by default it will execute against the current directory and all subdirectories. To test a cookbook completely, supply a path that is the name of the specific cookbook. 
 
 In a monolithic workflow where your cookbooks are all stored within the chef-repo/cookbooks directory, you would run rubocop with the cookbooks/COOKBOOK_NAME:
 
@@ -16,14 +15,20 @@ In a monolithic workflow where your cookbooks are all stored within the chef-rep
 $ rubocop cookbooks/setup
 ```
 
-While developing cookbooks you will find it easier or necessary to work within the directory of a cookbook. In those instances you may execute the command with a period to represent the current cookbook.
+If you wanted to test multiple cookbooks that were stored within chef-repo/cookbooks, you would run rubocop with each of the cookbook directories listed.
+
+```bash
+$ rubocop cookbooks/COOKBOOK1 cookbooks/COOKBOOK2 cookbooks/COOKBOOK4
+```
+
+While developing cookbooks you will find it easier or necessary to work within the directory of a cookbook. You can invoke rubocop by itself, or with "." which represents the current directory.
 
 ```bash
 $ cd cookbooks/setup
-$ rubocop .
+$ rubocop 
 ```
 
-When executed with a path that contains ruby files, Rubocop will return to you, via standard out, the results of the evaluation. This evaluation is a suite of enabled 'cops' that examine the code from a number of different perspectives that yield a list of of warnings, deviations from conventions, potentional errors, and fatal errors.
+When executed with a path that contains ruby files, Rubocop will return to you, via standard out, the results of the evaluation. This evaluation is a suite of enabled rules known as 'cops' that examine the code from a number of different perspectives that yield a list of of warnings, deviations from conventions, potentional errors, and fatal errors.
 
 * Enforces style conventions
 * Enforces best practices within Ruby
@@ -66,6 +71,38 @@ FILENAME:LINE_NUMBER:CHARACTER_NUMBER: TYPE_OF_ERROR: MESSAGE
 SOURCE CODE
 ^ (<- that carrot indicates the location within the source where the issue was detected)
 ```
+ 
+You can choose how you want to see your output in different ways. Formatters provide a way to group issues into categories. By default, Rubocop shows the progress format.
+
+Choosing the offenses format gives output groups categories like:
+
+```
+
+5   Style/EmptyLinesAroundBlockBody
+5   Style/SingleSpaceBeforeFirstArg
+3   Style/TrailingBlankLines
+2   Style/IndentationWidth
+2   Style/SpaceInsideBrackets
+1   Style/StringLiterals
+1   Style/TrailingWhitespace
+--
+19  Total
+
+```
+
+For example, "Style/TrailingWhitespace" is a **style** cop refering to a specific rule around **Trailing Whitespace**.
+
+In general, cops are divided into 3 types: Lint, Rails, and Style. If we want to run Rubocop and only check the code for correctness you could run with **--lint**:
+
+```
+
+rubocop --lint
+
+```
+
+You could also check just the **style** cops.
+
+To list all of the available cops, you can run rubocop with the **--show-cops** parameter. With this information you could then test a single cop at a time given the name with the parameter **--only COPNAME**.
 
 ### Configuring Rubocop
 
