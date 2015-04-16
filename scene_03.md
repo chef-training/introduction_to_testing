@@ -2,14 +2,23 @@
 
 ### Obtaining Rubocop
 
-Rubocop is part of the standard set of utilities included with the Chef Development Kit. 
+Rubocop is part of the standard set of utilities included with the Chef Development Kit.
 
 
 ### Using Rubocop
 
-Rubocop is a command-line application that checks your ruby code. Generally you want to specify a specific path, as by default it will execute against the current directory and all subdirectories. To test a cookbook completely, supply a path that is the name of the specific cookbook. 
+Rubocop is a command-line application that checks your ruby code.
 
-In a monolithic workflow where your cookbooks are all stored within the chef-repo/cookbooks directory, you would run Rubocop with the cookbooks/COOKBOOK_NAME:
+Rubocop, by default, assumes you are working within the directory of a cookbook. When invoked without any parameters it will assume you want to evaluate the contents of your current directory and any of its sub-directories.
+
+```bash
+$ cd cookbooks/setup
+$ rubocop
+```
+
+Rubocop allows you specify one or more paths after the command to specify the path or paths to the source code that you want to examine.
+
+In a monolithic workflow where your cookbooks are all stored within the chef-repo/cookbooks directory, you would run rubocop with the cookbooks/COOKBOOK_NAME:
 
 ```bash
 $ rubocop cookbooks/setup
@@ -21,23 +30,18 @@ If you wanted to test multiple cookbooks that were stored within chef-repo/cookb
 $ rubocop cookbooks/COOKBOOK1 cookbooks/COOKBOOK2 cookbooks/COOKBOOK4
 ```
 
-While developing cookbooks you will find it easier or necessary to work within the directory of a cookbook. You can invoke rubocop by itself, or with "." which represents the current directory.
-
-```bash
-$ cd cookbooks/setup
-$ rubocop 
-```
-
-When executed with a path that contains ruby files, Rubocop will return to you, via standard out, the results of the evaluation. This evaluation is a suite of enabled rules known as 'cops' that examine the code from a number of different perspectives that yield a list of warnings, deviations from conventions, potential errors, and fatal errors.
+Rubocop will examine the local directory, path or paths specified for ruby files. It will return, via standard out, the results of the evaluation. This evaluation is a suite of enabled rules known as 'cops' that examine the code from a number of different perspectives that yield a list of of warnings, deviations from conventions, potential errors, and fatal errors.
 
 * Enforces style conventions
 * Enforces best practices within Ruby
 * Evaluate the code against metrics (e.g. line length, function size)
 
-By running Rubocop early and often in your development process you gain two advantages:
+By running rubocop early and often in your development process you gain two advantages:
 
 * identify simple errors early.
 * improve the review process by eliminating stylistic issues  
+
+Lets examine the results of a rubocop execution:
 
 ```
 Inspecting 8 files
@@ -71,12 +75,13 @@ FILENAME:LINE_NUMBER:CHARACTER_NUMBER: TYPE_OF_ERROR: MESSAGE
 SOURCE CODE
 ^ (<- that carrot indicates the location within the source where the issue was detected)
 ```
- 
-You can choose how you want to see your output in different ways. Formatters provide a way to group issues into categories. By default, Rubocop shows the progress format.
+
+By default, rubocop shows the progress format. You can choose how you want to see your output in different ways. Formatters provide a way to group issues into categories.
 
 Choosing the offenses format gives output groups categories like:
 
 ```
+$ rubocop --format offenses
 
 5   Style/EmptyLinesAroundBlockBody
 5   Style/SingleSpaceBeforeFirstArg
@@ -92,12 +97,10 @@ Choosing the offenses format gives output groups categories like:
 
 For example, "Style/TrailingWhitespace" is a **style** cop referring to a specific rule around **Trailing Whitespace**.
 
-In general, cops are divided into 3 types: Lint, Rails, and Style. If we want to run Rubocop and only check the code for correctness you could run with **--lint**:
+In general, cops are divided into 3 types: Lint, Rails, and Style. If we want to run rubocop and only check the code for correctness you could run with **--lint**:
 
 ```
-
-rubocop --lint
-
+$ rubocop --lint
 ```
 
 You could also check just the **style** cops.
@@ -106,11 +109,11 @@ To list all of the available cops, you can run rubocop with the **--show-cops** 
 
 ### Configuring Rubocop
 
+Rubocop is executed with the following default set of enabled [rules](https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml). There are also a number of [disabled rules](https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml).
+
 Rubocop feedback can sometimes feel less helpful. A majority of the raised issues will be related to style and formatting (e.g. spaces, parenthesis, and other minutia within the language).
 
 > Even some of the files (e.g. metadata.rb) the Chef tools generate will immediately raise issues when reviewed by Rubocop.
-
-Rubocop is executed with the following default set of enabled [rules](https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml). There are also a number of [disabled rules](https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml).
 
 To improve the effectiveness of the tool, you can configure the various cops to align with the conventions within your organization that are important. In general, the conventions should be the same within an organization to ensure individuals within teams are familiar with the company standard. As a team, decide what standards you want to comply with, and you may disable cops that are not important for your cookbook design and correctness.
 
@@ -142,7 +145,7 @@ Each entry within the file adheres to the following format:
 
 ```
 NAME_OF_COP:
-  Enabled : (true or false)
+  Enabled: (true or false)
   PARAMETER_KEY: PARAMETER_VALUE
 ```
 
@@ -163,9 +166,3 @@ $ rubocop --auto-gen-config
 ```
 
 This generates a file named `.rubocop_todo.yml`. You can simply rename this file as `.rubocop.yml` if you want to accept it as the rubocop standard for the cookbook.
-
-Often times this file is generated as a list of items you want to review one-at-a-time. This is why the file is named `.rubocop_todo.yml`. Instead of renaming this file you can define a `.rubocop.yml` that includes this file as well.
-
-```yaml
-inherit_from: .rubocop_todo.yml
-```
