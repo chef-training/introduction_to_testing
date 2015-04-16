@@ -7,9 +7,9 @@ Rubocop is part of the standard set of utilities included with the Chef Developm
 
 ### Using Rubocop
 
-Rubocop is a command-line application that checks your ruby code. Generally you want to specify a specific path as by default it will execute against the current directory and all subdirectories. To test a cookbook completely, supply a path that is the name of the specific cookbook. 
+Rubocop is a command-line application that checks your ruby code. Generally you want to specify a specific path, as by default it will execute against the current directory and all subdirectories. To test a cookbook completely, supply a path that is the name of the specific cookbook. 
 
-In a monolithic workflow where your cookbooks are all stored within the chef-repo/cookbooks directory, you would run rubocop with the cookbooks/COOKBOOK_NAME:
+In a monolithic workflow where your cookbooks are all stored within the chef-repo/cookbooks directory, you would run Rubocop with the cookbooks/COOKBOOK_NAME:
 
 ```bash
 $ rubocop cookbooks/setup
@@ -28,7 +28,7 @@ $ cd cookbooks/setup
 $ rubocop 
 ```
 
-When executed with a path that contains ruby files, Rubocop will return to you, via standard out, the results of the evaluation. This evaluation is a suite of enabled rules known as 'cops' that examine the code from a number of different perspectives that yield a list of of warnings, deviations from conventions, potentional errors, and fatal errors.
+When executed with a path that contains ruby files, Rubocop will return to you, via standard out, the results of the evaluation. This evaluation is a suite of enabled rules known as 'cops' that examine the code from a number of different perspectives that yield a list of warnings, deviations from conventions, potential errors, and fatal errors.
 
 * Enforces style conventions
 * Enforces best practices within Ruby
@@ -59,10 +59,10 @@ default["apache"]["indexfile"] = "index1.html"
 The results start with a summary describing the number of ruby files that found and examined. Next it displays the results of each of those files as a series of symbols or letters.
 
 * `.` means that the file contains no issues
-* `C` means a issue with convention
+* `C` means an issue with convention
 * `W` means a warning
 * `E` means an error
-* `F` means an fatal error
+* `F` means a fatal error
 
 After the summary each of the offences are displayed in the following format:
 
@@ -90,7 +90,7 @@ Choosing the offenses format gives output groups categories like:
 
 ```
 
-For example, "Style/TrailingWhitespace" is a **style** cop refering to a specific rule around **Trailing Whitespace**.
+For example, "Style/TrailingWhitespace" is a **style** cop referring to a specific rule around **Trailing Whitespace**.
 
 In general, cops are divided into 3 types: Lint, Rails, and Style. If we want to run Rubocop and only check the code for correctness you could run with **--lint**:
 
@@ -114,7 +114,7 @@ Rubocop is executed with the following default set of enabled [rules](https://gi
 
 To improve the effectiveness of the tool, you can configure the various cops to align with the conventions within your organization that are important. In general, the conventions should be the same within an organization to ensure individuals within teams are familiar with the company standard. As a team, decide what standards you want to comply with, and you may disable cops that are not important for your cookbook design and correctness.
 
-Eech cookbook you create can have its own custom set of enabled, disabled, and configured cops.
+Each cookbook you create can have its own custom set of enabled, disabled, and configured cops.
 
 > While you are able to define different rubocop rules per cookbook often times all your cookbooks within your organization will share the same rules.
 
