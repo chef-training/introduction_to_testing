@@ -1,4 +1,4 @@
-# Test-Driven Development
+# Introduction to Testing
 
 This is the outline for an online, recorded workshop. Each scene represents another video that would be recorded and delivered to the individual taking the course.
 
