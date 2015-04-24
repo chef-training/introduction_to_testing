@@ -2,7 +2,7 @@
 
 Welcome to Introduction to Testing with Chef. In this course we will be introducing you to the importance of Chef cookbook styling and correctness. We have divided up the learning sessions into discrete pieces so that you can learn at your own pace and focus on the areas that you feel you need additional help.
 
-- 
+-
 
 In this first session, we will introduce the topic and describe our main objectives. 
 
@@ -36,7 +36,7 @@ It is seldom that our cookbooks maintain small goals on new systems or that we w
 
 Every time we make changes to our cookbooks we are introducing risk. We can stop making changes to reduce the risk or we can adopt new practices, like linting and testing, to help us manage that risk.
 
-- 
+-
 
 An updated workflow, one able to manage risk better and describe the implicit assumptions made throughout the development of the cookbook involves these tools through the entire cookbook development workflow:
 
@@ -46,13 +46,13 @@ An updated workflow, one able to manage risk better and describe the implicit as
 * Deploy the code to a local virtual environment
 * Perform automated integration testing against that virtual environment
 
-- 
+-
 
 Additionally to local development, we also setup a continuous integration environment that performs the same series of steps of linting and testing the cookbooks.
 
 This workflow gives us consistent, automated feedback at each stage of cookbook development. By employing linting and testing tools we are able to more confidently deliver code because these tools will help us better understand the cookbooks that you are building.
 
-- 
+-
 
 Linting tools provide automated ways to ensure that the code we write adheres to conventions that ensure code uniformity, portability, and uses best practices. This ensures everyone on the team writes similarly structured source code. It helps weave the expectations into the development of the code, and encourages collaboration over time. Ensuring the uniformity of source code helps set the expectations for fellow project contributors.
 
