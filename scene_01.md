@@ -10,21 +10,15 @@ In this first session, we will introduce the topic and describe our main objecti
 
 When thinking about cookbook development, of course it is important that the cookbook works. A common accepted development workflow could look like:
 
-* Write some cookbook code
-* Perform ad-hoc verification
-* Upload the cookbook to the Chef Server
+Add new features to an existing cookbook. Perhaps some ad-hoc verification by eye-balling the code it to make sure it looks right. Perhaps walk a few logic branches on the back of a napkin. Or maybe nothing at all. In any case the cookbook is uploaded to the Chef server.
 
 -
 
-* chef-client applies the updated cookbook
-* We login to one node to perform ad-hoc verification on the system
-* We then promote the cookbook to the next environment
+We login a special test node, maybe in a law-free environment, and run chef-client to synchronize and apply the latest cookbook. After applying the policy we poke around the system by running a few commands to see if ports, services and maybe logs are all working correctly. Then we log out and hope that every thing is working when we promote the cookbook to be used in the next environment.
 
 -
 
-* Again chef-client applies the updated cookbook
-* And adain we login to the node to perform ad-hoc verification on the sytem
-* And, of course, set up monitoring on the deployed services
+Again we may log in to the system and update the cookbook and poke around. Again, we may not. At this point having seen it work on one machine already means that it is likely work in the next environment. We may also now setup monitoring for our new deployed services.
 
 -
 
