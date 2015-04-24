@@ -1,6 +1,8 @@
 ## The Importance of Cookbook Style and Correctness
 
-Welcome to Introduction to Testing with Chef. In this course we will be introducing you to the importance of Chef cookbook styling and correctness. We have divided up the learning sessions into discrete pieces so that you can learn at your own pace and focus on the areas that you feel you need additional help.
+Welcome to Introduction to Testing with Chef. [Introduce Yourself]. 
+
+In this course we will be introducing you to the importance of Chef cookbook styling and correctness. We have divided up the learning sessions into discrete pieces so that you can learn at your own pace and focus on the areas that you feel you need additional help.
 
 -
 
@@ -8,23 +10,29 @@ In this first session, we will introduce the topic and describe our main objecti
 
 -
 
-When thinking about cookbook development, of course it is important that the cookbook works. A common accepted development workflow could look like:
+When thinking about cookbook development it is important that the cookbook works.
 
-Add new features to an existing cookbook. Perhaps some ad-hoc verification by eye-balling the code it to make sure it looks right. Perhaps walk a few logic branches on the back of a napkin. Or maybe nothing at all. In any case the cookbook is uploaded to the Chef server.
+How do you verify the cookbooks you wrote work before they reach a production environment?
 
--
+Let's examine a common development workflow:
 
-We login a special test node, maybe in a law-free environment, and run chef-client to synchronize and apply the latest cookbook. After applying the policy we poke around the system by running a few commands to see if ports, services and maybe logs are all working correctly. Then we log out and hope that every thing is working when we promote the cookbook to be used in the next environment.
+New features are added to our existing cookbook. At this point we may perform some ad-hoc verification by eye-balling the code for the right amount of dos and ends. We may walk a few logic branches in our head to ensure that our platforms are correctly configured. Maybe the change is so simple we don't even worry about it. 
 
--
-
-Again we may log in to the system and update the cookbook and poke around. Again, we may not. At this point having seen it work on one machine already means that it is likely work in the next environment. We may also now setup monitoring for our new deployed services.
+We then upload the cookbook to the Chef Server.
 
 -
 
-Generally the write, verify and deploy cycle involves small enough increments of work that can be easily verified. In isolation, cookbooks with small goals on new systems are easy to reason what the recipes will install and the effects it will have on the system. This style can lead to hidden technical debt that is obscured as a single individual works through getting the project done. 
+We login to a test node that we place into a special environment where there are no cookbook restrictions. We run chef-client to synchronize and apply the latest changes in our cookbook. If everything converges without error we poke around the system -- running a few commands to see if ports and services are running, configuration files are in place and our logs don't show any errors. Then we log out and feel pretty comfortable promoting the cookbook to the next integration environment.
 
-It is seldom that our cookbooks maintain small goals on new systems or that we will be the only individual responsible for that cookbook in the long run. We are often confronted with the complexity that originally brought us to seek out configuration management in the first place. The additional cost of refactoring technical debt may lead to individuals throwing out work and restarting the process again leading to a lot of wasted work.
+-
+
+We may log in to this system and update the cookbook and poke around. We may not. At this point having seen it work on one machine already means that it is likely work in the next environment. Right? We also may not have the time to verify everything again that's what monitoring will help us verify.
+
+-
+
+Generally the write, verify and deploy cycle involves small enough increments of work that can be easily verified. In isolation, cookbooks with small goals on new systems are easy to understand. They are relatively easy to verify as well. However, it is seldom that our cookbooks maintain small goals on new systems, that we continue to focus on that cookbook against other needs of the business, or that we will be the only individual responsible for that cookbook in the long run.
+
+This approach of using ad-hoc verification can lead to hidden technical debt that is obscured as a single individual works through getting the work done. Eventually this debt becomes overwhelming and we are often confronted with the complexity that originally brought us to seek out configuration management in the first place.
 
 -
 
@@ -49,6 +57,8 @@ This workflow gives us consistent, automated feedback at each stage of cookbook 
 -
 
 Linting tools provide automated ways to ensure that the code we write adheres to conventions that ensure code uniformity, portability, and uses best practices. This ensures everyone on the team writes similarly structured source code. It helps weave the expectations into the development of the code, and encourages collaboration over time. Ensuring the uniformity of source code helps set the expectations for fellow project contributors.
+
+-
 
 Testing tools including unit and integration testing provide automated ways to ensure that the code we write accomplishes its intended goal. It also helps us understand the intent of our code by providing executable documentation - as tests are able to run in virtualized environments.
 
