@@ -6,53 +6,57 @@ In this course we will be introducing you to the importance of Chef cookbook sty
 
 -
 
-In this first session, we will introduce the topic and describe our main objectives. 
+In this first session, we will explain the value of testing and linting, introduce the the linting and testing, and describe the main objectives of this course.
 
 -
 
 When thinking about cookbook development it is important that the cookbook works.
 
-How do you verify the cookbooks you wrote work before they reach a production environment?
+How do you verify your cookbooks before you send them to a production environment?
 
 Let's examine a common development workflow:
 
-New features are added to our existing cookbook. At this point we may perform some ad-hoc verification by eye-balling the code for the right amount of dos and ends. We may walk a few logic branches in our head to ensure that our platforms are correctly configured. Maybe the change is so simple we don't even worry about it. 
+Imagine we add new features to an existing cookbook. Before uploading it to the Chef Server we perform an ad-hoc examination of the recipes -- eye-balling the code for matching braces, parenthesis, and dos and ends. If we wrote code with logic, we may walk a few logic branches in our head or on a white board to ensure that our platforms are correctly configured. Or perhaps the change is so simple we don't even worry about it -- like a small change to a path inside a string or the addition of a new node attribute.
 
-We then upload the cookbook to the Chef Server.
-
--
-
-We login to a test node that we place into a special environment where there are no cookbook restrictions. We run chef-client to synchronize and apply the latest changes in our cookbook. If everything converges without error we poke around the system -- running a few commands to see if ports and services are running, configuration files are in place and our logs don't show any errors. Then we log out and feel pretty comfortable promoting the cookbook to the next integration environment.
+Maybe now we feel comfortable uploading the cookbook to the Chef Server.
 
 -
 
-We may log in to this system and update the cookbook and poke around. We may not. At this point having seen it work on one machine already means that it is likely work in the next environment. Right? We also may not have the time to verify everything again that's what monitoring will help us verify.
+We login to a test node that we patiently bootstrap into a union environment. This is an environment we setup with no cookbook restrictions allowing chef-client to synchronize and apply the latest changes in the recently completed cookbook. Here we see if we got the right package names, spelled all our cookbook attributes correctly, and didn't typo any of the configuration in the templates. If everything converges without error we poke around the system -- running a few commands to see if ports are blocked, services are running, and the logs don't show any errors. 
+
+Logging out of the working system we feel pretty comfortable promoting the cookbook to the rehearsal environment.
 
 -
 
-Generally the write, verify and deploy cycle involves small enough increments of work that can be easily verified. In isolation, cookbooks with small goals on new systems are easy to understand. They are relatively easy to verify as well. However, it is seldom that our cookbooks maintain small goals on new systems, that we continue to focus on that cookbook against other needs of the business, or that we will be the only individual responsible for that cookbook in the long run.
-
-This approach of using ad-hoc verification can lead to hidden technical debt that is obscured as a single individual works through getting the work done. Eventually this debt becomes overwhelming and we are often confronted with the complexity that originally brought us to seek out configuration management in the first place.
+Here in this new environment we may log in another system. Manually perform a chef-client run and then poke around again if everything works. We also may not. It was such a small change and everything worked on the other machine -- so it's likely to work here. Right? Instead we may focus on establishing monitoring for our new services that are deploying.
 
 -
 
-Every time we make changes to our cookbooks we are introducing risk. We can stop making changes to reduce the risk or we can adopt new practices, like linting and testing, to help us manage that risk.
+In isolation, cookbooks with small goals on new systems are easy to understand. They are relatively easy to verify as well. However, it is seldom that our cookbooks maintain small goals or deployed on to new systems. As time go ones and cookbook development continues it's also hard maintaining extensive knowledge of the cookbook in the face of many other competing business needs pulling us away.
+
+This approach of using ad-hoc verification can lead to hidden technical debt. Eventually this debt becomes overwhelming and we are often confronted with the complexity that originally brought us to seek out configuration management in the first place.
 
 -
 
-An updated workflow, one able to manage risk better and describe the implicit assumptions made throughout the development of the cookbook involves these tools through the entire cookbook development workflow:
-
-* Write some cookbook code
-* Perform linting for code correctness
-* Perform unit testing to ensure correctness
-* Deploy the code to a local virtual environment
-* Perform automated integration testing against that virtual environment
+Every time we make changes to our cookbooks we are introducing risk. We can stop making changes to reduce the risk OR we can adopt new practices, like linting and testing, to help us manage that risk.
 
 -
 
-Additionally to local development, we also setup a continuous integration environment that performs the same series of steps of linting and testing the cookbooks.
+Lets talk about an updated workflow, one able to manage risk better. One that involves these tools throughout the entire cookbook development workflow:
+
+It all starts with adding new features to the cookbook. But now before we upload the cookbook to the Chef Server we employ linting tool to automatically verify the syntax and structure of our recipes. We use unit testing to verify that the recipes performs its intended operations catching typos and exhaustively exploring all of our logic branches for each platform.
+
+On top of that we use additional tools that allow us to deploy and test our cookbook code against virtualized environments that mirror our production systems. 
+
+All of these examinations are done through automation that we've defined and gives us more confidence when we commit the changes to our cookbook to source control.
+
+-
+
+We also setup a continuous integration environment that performs the same series of steps of linting and testing the cookbooks. To ensure an impartial source examines the cookbooks to prevent issues of cookbooks only working on "my machine".
 
 This workflow gives us consistent, automated feedback at each stage of cookbook development. By employing linting and testing tools we are able to more confidently deliver code because these tools will help us better understand the cookbooks that you are building.
+
+Alright, so what are linting tools? What are testing tools?
 
 -
 
@@ -60,10 +64,12 @@ Linting tools provide automated ways to ensure that the code we write adheres to
 
 -
 
-Testing tools including unit and integration testing provide automated ways to ensure that the code we write accomplishes its intended goal. It also helps us understand the intent of our code by providing executable documentation - as tests are able to run in virtualized environments.
+Testing tools provide automated ways to ensure that the code we write accomplishes its intended goal. It also helps us understand the intent of our code by providing executable documentation - as tests are able to run in virtualized environments. We add new cookbook features and write tests to preserve this functionality so that when we - or anyone else on the team - returns to a cookbook tomorrow (or in a few months) to make additional changes we are certain we don't accidently break something.
+
+-
 
 During this course you will learn and demonstrate this new cookbook workflow employing the following tools:
 
-* Code Correctness - Foodcritic and Rubocop
-* Unit Tests - ChefSpec
-* Integration Tests - Test Kitchen with ServerSpec
+* Code Correctness with Foodcritic and Rubocop
+* Unit Tests and testing with ChefSpec
+* And Integration Tests through Test Kitchen and ServerSpec
