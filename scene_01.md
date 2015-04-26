@@ -6,7 +6,7 @@ In this course we will be introducing you to the importance of Chef cookbook sty
 
 -
 
-In this first session, we will explain the value of testing and linting, introduce the the linting and testing, and describe the main objectives of this course.
+In this first session, we will explain the value of testing your cookbooks and then layout the main objectives of this course.
 
 -
 
@@ -54,7 +54,7 @@ All of these examinations are done through automation that we've defined and giv
 
 We also setup a continuous integration environment that performs the same series of steps of linting and testing the cookbooks. To ensure an impartial source examines the cookbooks to prevent issues of cookbooks only working on "my machine".
 
-This workflow gives us consistent, automated feedback at each stage of cookbook development. By employing linting and testing tools we are able to more confidently deliver code because these tools will help us better understand the cookbooks that you are building.
+This workflow gives us consistent, automated feedback at each stage of cookbook development by monitoring every commit. By employing these tools in an continuous integration environment your team is able to see immediately where and when bugs happen instead of weeks later when it comes time to deploy the updated cookbook.
 
 Alright, so what are linting tools? What are testing tools?
 
