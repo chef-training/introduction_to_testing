@@ -44,7 +44,7 @@ Every time we make changes to our cookbooks we are introducing risk. We can stop
 
 Lets talk about an updated workflow, one able to manage risk better. One that involves these tools throughout the entire cookbook development workflow:
 
-It all starts with adding new features to the cookbook. But now before we upload the cookbook to the Chef Server we employ linting tool to automatically verify the syntax and structure of our recipes. We use unit testing to verify that the recipes performs its intended operations catching typos and exhaustively exploring all of our logic branches for each platform.
+It all starts with adding new features to the cookbook. But now before we upload the cookbook to the Chef Server we employ linting tool to automatically verify the syntax and structure of our cookbook. We use unit testing to verify that the cookbook performs its intended operations catching typos and exhaustively exploring all of our logic branches for each platform.
 
 On top of that we use additional tools that allow us to deploy and test our cookbook code against virtualized environments that mirror our production systems. 
 
