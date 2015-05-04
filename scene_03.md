@@ -40,7 +40,7 @@ Rubocop will examine the local directory, path or paths specified for ruby files
 
 -
 
-It will return, via standard out, the results of the evaluation. This evaluation is a suite of enabled rules known as 'cops' that examine the code from a number of different perspectives that yield a list of of warnings, deviations from conventions, potential errors, and fatal errors.
+It will return, via standard out, the results of the evaluation. This evaluation is a suite of enabled rules known as 'cops' that examine the code from a number of different perspectives that yield a list of warnings, deviations from conventions, potential errors, and fatal errors.
 
 -
 
