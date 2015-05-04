@@ -150,4 +150,4 @@ $ echo "style,services" > my_cookbook/.foodcritic
 
 -
 
-You can also define your own rules or import them. An example of that are the rules defined by [Etsy](https://github.com/etsy/foodcritic-rules).
+## Foodcritic
