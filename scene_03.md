@@ -1,11 +1,10 @@
 ## Introducing Rubocop
 
-### Obtaining Rubocop
+-
 
 Rubocop is part of the standard set of utilities included with the Chef Development Kit.
 
-
-### Using Rubocop
+-
 
 Rubocop is a command-line application that checks your ruby code.
 
