@@ -1,6 +1,6 @@
 ## Rubocop - Introduction
 
-Welcome back to Introduction to Testing with Chef. 
+Welcome to Introduction to Testing with Chef. 
 
 -
 
@@ -32,7 +32,11 @@ Why we are doing this is best summed up by Officer Alex J. Murphy (a.k.a. Roboco
 
 -
 
-Rubocop will evalute the ruby files within your cookbooks and provide feedback about your adherence to [ruby style guidelines](https://github.com/bbatsov/ruby-style-guide). This feedback shows you where the code violates idiomatic ruby conventions, display warnings, potential errors, and even fatal errors. For example, in ruby the expectation is that there are **two spaces** per indentation level. If Rubocop discovers lines with **three spaces** you will get a warning.
+Rubocop will evalute the ruby files within your cookbooks and provide feedback about your adherence to [ruby style guidelines](https://github.com/bbatsov/ruby-style-guide). This feedback shows you where the code violates idiomatic ruby conventions, display warnings, potential errors, and even fatal errors. 
+
+-
+
+For example, in ruby the expectation is that there are **two spaces** per indentation level. If Rubocop discovers lines with **three spaces** you will get a warning.
 
 -
 
