@@ -1,18 +1,22 @@
 ## Introducing Rubocop
 
+Welcome to Introduction to Testing with Chef.
+
+In this section we will be introducing Rubcop, the command-line tool, that allows us lint our cookbook code.
+
 -
 
 Rubocop is part of the standard set of utilities included with the Chef Development Kit.
 
 -
 
-Rubocop is a command-line application that checks your ruby code.
+Rubocop is a command-line application that analyzes source code to verify the syntax and structure of our cookbooks.
 
 -
 
 Rubocop, by default, assumes you are working within the directory of a cookbook. When invoked without any parameters it will assume you want to evaluate the contents of your current directory and any of its sub-directories.
 
-Here is an example of us changing into the directory for the apache cookbook and running the foodcritic command. Rubocop will evaluate the apache cookbook.
+Here is an example of us changing into the directory for the apache cookbook and running the rubocop command. Rubocop will evaluate the apache cookbook.
 
 -
 
@@ -38,41 +42,20 @@ Rubocop will examine the local directory, path or paths specified for ruby files
 
 It will return, via standard out, the results of the evaluation. This evaluation is a suite of enabled rules known as 'cops' that examine the code from a number of different perspectives that yield a list of of warnings, deviations from conventions, potential errors, and fatal errors.
 
-* Enforces style conventions
-* Enforces best practices within Ruby
-* Evaluate the code against metrics (e.g. line length, function size)
-
 -
 
 By running rubocop early and often in your development process you gain two advantages:
 
-* identify simple errors early.
+* identify simple errors early
 * improve the review process by eliminating stylistic issues
 
 -
 
 Now you know how to use the tool lets examine the results of a rubocop execution:
 
-```
-Inspecting 8 files
-CWCWCCCC
-
-Offences:
-
-cookbooks/apache/attributes/default.rb:1:1: C: Missing utf-8 encoding comment.
-default["apache"]["indexfile"] = "index1.html"
-^
-cookbooks/apache/attributes/default.rb:1:9: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
-default["apache"]["indexfile"] = "index1.html"
-        ^^^^^^^^
-cookbooks/apache/attributes/default.rb:1:19: C: Prefer single-quoted strings when you don't need string interpolation or special symbols.
-default["apache"]["indexfile"] = "index1.html"
-                  ^^^^^^^^^^^
-```
-
 -
 
-The results start with a summary describing the number of ruby files that found and examined. Next it displays the results of each of those files as a series of symbols or letters.
+The results start with a summary describing the number of ruby files that were found and examined. Next it displays the results of each of those files as a series of symbols or letters.
 
 * `.` means that the file contains no issues
 * `C` means an issue with convention
@@ -83,6 +66,8 @@ The results start with a summary describing the number of ruby files that found 
 -
 
 After the summary each of the offences are displayed in the following format:
+
+-
 
 FILENAME is the partial path of the file relative to where the rubocop command was executed.
 
@@ -100,11 +85,11 @@ The carrot symbol on the next line indicates the column number where the error w
 
 -
 
-By default, rubocop shows the progress format. You can choose how you want to see your output in different ways. Formatters provide a way to group issues into categories.
+By default, rubocop shows the result in the "progress" format. Formatters allow you to see the results in different ways. Lets demonstrate the use one such formmater.
 
 Choosing the offenses format gives output grouped in categories like the following.
 
-For example, "Style/TrailingWhitespace" is a **style** cop referring to a specific rule around **Trailing Whitespace**.
+For example, "Style/SingleSpaceBeforeFirstArg" is a **style** cop referring to a specific rule around **the number of spaces that appear after a function name and the first parameter**.
 
 -
 
@@ -116,7 +101,11 @@ To list all of the available cops, you can run rubocop with the **--show-cops** 
 
 -
 
-With this information you could then test a single cop at a time given the name with the parameter **--only COPNAME**.
+Here we see a lint cop named AmbiguousOperator with its description and a link to the Rubocop documentation.
+
+-
+
+With this information you could then test a single cop at a time; given the name with the parameter **--only COPNAME**.
 
 -
 
@@ -141,23 +130,9 @@ Each cookbook you create can have its own custom set of enabled, disabled, and c
 
 -
 
-Within a particular cookbook you define a YAML (YAML Ain't Markup Language) file named `.rubocop.yml`. YAML files are white-space significant formatted file, like python.
+Within a particular cookbook you define a YAML (YAML Ain't Markup Language) file named `.rubocop.yml`. YAML files store data in a white-space significant formatted file.
 
 This is an example of a common `.rubocop.yml` for Chef cookbooks.
-
-```
-AlignParameters:
-  Enabled: false
-
-Encoding:
-  Enabled: false
-
-LineLength:
-  Max: 200
-
-StringLiterals:
-  Enabled: false
-```
 
 -
 
@@ -189,14 +164,17 @@ NAME_OF_COP:
 
 -
 
-When Rubocop is executed against a cookbook the default enabled and disabled cops are loaded and then the Rubocop YAML file is evaluated. This allows you to customize the cops that are enforced.
+When Rubocop is executed against a cookbook the default enabled and disabled cops are loaded and then the dot-Rubocop-dot-YAML file with the cookbook is evaluated. This allows you to customize the cops that are enforced.
 
 -
 
-There may be more "issues" that Rubocop is alerting to you that you would like to ignore initially or completely. Rubocop allows you to capture the current state of all the offences and write them to a file that you can accept as your core rules.
+There may be more "issues" that Rubocop is alerting you to that you would like to ignore initially or completely. Rubocop allows you to capture the current state of all the offences and write them to a file that you can accept as your core rules.
 
-Within your cookbook run rubocop with the flag dash-dash-auto-gen-config.
+Within your cookbook run rubocop with the flag dash-dash-auto-dash-gen-dash-config.
 
 -
 
 This generates a file named `.rubocop_todo.yml`. You can simply rename this file as `.rubocop.yml` if you want to accept it as the rubocop standard for the cookbook.
+
+-
+
