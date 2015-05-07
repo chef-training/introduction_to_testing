@@ -2,7 +2,7 @@
 
 Welcome to Introduction to Testing with Chef.
 
-In this section we will be introducing Rubcop, the command-line tool, that allows us lint our cookbook code.
+In this section we will be introducing Rubcop, the command-line tool, that allows us to lint our cookbooks.
 
 -
 
@@ -22,7 +22,7 @@ Here is an example of us changing into the directory for the apache cookbook and
 
 Rubocop allows you specify one or more paths after the command to specify the path or paths to the source code that you want to examine.
 
-In a monolithic workflow where your cookbooks are all stored within the chef-repo/cookbooks directory, you would run rubocop with the cookbooks/COOKBOOK_NAME.
+In a monolithic repository where your cookbooks are all stored within the chef-repo/cookbooks directory, you would run rubocop with the cookbooks/COOKBOOK_NAME.
 
 -
 
