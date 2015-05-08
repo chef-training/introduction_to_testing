@@ -30,7 +30,7 @@ This ensures everyone on the team writes similarly structured source code. It he
 6
 -
 
-When it comes time to composing cookbook code you often times have many ways to solve your problems. There are also many ways to create problems.
+When it comes to composing cookbook code you often times have many ways to solve your problems. There are also many ways to create problems.
 
 -
 7
@@ -42,7 +42,7 @@ Foodcritic is built for Chef developers by Chef developers to ensure all their c
 8
 -
 
-There are over 50 rules defined to address conventions for a variety of areas of a cookbook. 
+There are over 50 rules defined to address conventions for a variety of areas of a cookbook.
 
 An example of one is if you defined a resource with an incorrectly defined action or attribute.
 
@@ -50,7 +50,7 @@ An example of one is if you defined a resource with an incorrectly defined actio
 9
 -
 
-As in this instance where the execute resource only has two actions :run and :nothing but we have defined the action as :rum. A potential error! 
+As in this instance where the execute resource only has two actions :run and :nothing but we have defined the action as :rum. A potential error!
 
 -
 10

@@ -16,7 +16,7 @@ Foodcritic is part of the standard set of utilities included with the Chef Devel
 3
 -
 
-Foodcritic is a command-line application that analyzes cookbooks to verify if they adhere to a set of conventions.
+Foodcritic is a command-line application that analyzes cookbooks to verify that they adhere to a set of conventions.
 
 
 -
@@ -70,13 +70,15 @@ Each line of the output that starts with the sequence FC followed by three numbe
 
 Each violation can be broken down into the following format.
 
-First is the rule number. The colon character here acts a separator for our fields.
+First is the violation number. FC is short for Foodcritic. The number that follows is the unique, numeric identifier tied to the community convention.
+
+The colon character here acts a separator for our fields.
 
 After the first separator is the message associated with the violation.
 
 Another colon separates the message from the partial path to the file within the cookbook that contains the violation.
 
-The last value after the filepath is the line number within the file with the fiolation. This line number makes it easier to find the issue within the code more quickly when you are trying to address the violations.
+The last value after the filepath is the line number within the file that contained the violation. This line number makes it easier to find the issue within the code more quickly when you are trying to address the violations.
 
 -
 
