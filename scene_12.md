@@ -18,7 +18,9 @@ This is a test, or specification, that is written in pure RSpec. RSpec provides 
 
 * `describe` - allows us to describe the subject or the title of the thing that we are testing. For our test the name 'Math' is not important other than to give us a parent heading to give us guidance on the examples we are writing.
 
-* `context` - this is an alias of the `describe`. It cannot however be used as a top-level item. The reason for nesting a `context` or `describe` is to further refine your tests by creating a group of specific tests for a given scenario. The rule to use when considering if you should create is a context: If you are thinking to yourself ... when I am on this platform ... and when I'm on that platform ... -- then consider using a context.
+* `context` - this is an alias of the `describe`. It cannot however be used as a top-level item. The reason for nesting a `context` or `describe` is to further refine your tests by creating a group of specific tests for a given scenario.
+
+The rule to use when considering if you should add a context to your tests is if you are thinking to yourself ... when I am on this platform ... and when I'm on that platform ...
 
 
 ```ruby

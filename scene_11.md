@@ -40,7 +40,7 @@ After the description the error will be displayed to you. It often times repeats
 
 The position of the failure will be displayed by outputting the file name followed by the line number.
 
-RSpec also represents the failures again as commands you could execute if you wanted to run a specific test again. To do this you need to specify the file name and a line number. The line number is any line within the defined example ('it' block).
+RSpec also represents the failures again as commands you could execute if you wanted to run a specific test. To do this you need to specify the file name and a line number. The line number is any line within the defined example ('it' block).
 
 ```
 $ rspec ./spec/unit/default_spec.rb:29
