@@ -2,7 +2,7 @@
 
 ## RSpec - Language
 
-Welcome to Introduction to Testing with Chef. 
+Welcome to Introduction to Testing with Chef.
 
 -
 
@@ -10,17 +10,17 @@ In this section we will be introducing RSpec, a testing framework.
 
 -
 
-RSpec is a Behavior Driven Development (BDD) framework that uses a natural language domain-specific language (DSL) to quickly describe scenarios in which systems are being tested. 
+RSpec is a Behavior Driven Development (BDD) framework that uses a natural language domain-specific language (DSL) to quickly describe scenarios in which systems are being tested.
 
 -
 
-ChefSpec, a unit testing tool, is built on the RSpec DSL. 
+ChefSpec, a unit testing tool, is built on the RSpec DSL.
 
 -
 5
 -
 
-ServerSpec, an integration testing tool, is also build on the RSpec DSL.
+ServerSpec, an integration testing tool, is also built on the same RSpec DSL.
 
 -
 
@@ -40,19 +40,19 @@ describe "1 plus 1" do
 end
 ```
 
-Here is an example of a specification. This specification, or tests describes the scenario when adding one to another one producing the value two.
+Here is an example of a specification. This specification, or test, describes the scenario where one plus one equals the value two.
 
 -
 8
 -
 
-The outer describe method is an example group of what we are testing. 
+The outer describe method creates an example group.
 
 -
 9
 -
 
-The first parameter is a string which describes the focus of the example group. 
+The first parameter is a string which describes the focus of the example group.
 
 -
 10
@@ -64,13 +64,13 @@ The second parameter is the block that contains all the examples defined.
 11
 -
 
-In this specific instance we are concerned with defining an example group dedicated to testing everything that happens when adding a one to another one. 
+In this specific instance we are concerned with defining an example group dedicated to testing everything that happens when adding a one to another one.
 
 -
 12
 -
 
-Inside the example group we define examples. An example starts with the it method. 
+Inside the example group we define examples. An example starts with the it method.
 
 -
 
@@ -108,7 +108,7 @@ The expect method wraps the resulting value from the scenario. Then that wrapped
 
 -
 
-We use `to` when we want the comparison between the resulting value and the matcher to be true. 
+We use `to` when we want the comparison between the resulting value and the matcher to be true.
 
 -
 20
@@ -142,9 +142,9 @@ describe "Math" do
 end
 ```
 
-RSpec provides two more important helper methods. 
+RSpec provides two more important helper methods.
 
-The first is context. 
+The first is context.
 
 -
 22
@@ -158,14 +158,12 @@ The rule to use when considering if you should add a new example group is if you
 23
 -
 
-Here within the first context we use another helper method, let, which allows us to execute the ruby code and store the value so that it can be used within an example.
+Here within the first context we use another helper method, let.
 
-The let defines a helper method that shares the name of the symbol used specified when creating it.
+-
 
-This method is useful as it will memoize the return value for the remainder of an individual example.
+The let defines a helper method that shares the name of the symbol specified when creating it.
 
-Memoization means that the helper method will calculate the value the first time, store it, and return that same value until the example is complete.
+This method is useful as it will calculate the value of sum the first time, store it, and return that same value every time it is requested until the end of the example.
 
-While it may have a performance benefit most people use it to provide more clarity to the tests that they define.
-
- 
+This is a performance benefit and provides clarity to the tests that they define by again focusing on natural language in the specifications.
