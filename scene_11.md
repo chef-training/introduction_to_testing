@@ -16,7 +16,7 @@ RSpec is a command-line application that allows you to execute a body of tests a
 
 -
 
-Rspec, by default, assumes you are working within a directory that has a sub-directory named 'spec'. This 'spec' directory is defined at the top-level of cookbooks with tests defined.
+Rspec, by default, assumes you are working within a cookbook and that cookbook has a sub-directory named 'spec'.
 
 Here is an example of us changing into the directory for the git cookbook and running the rspec command. Rspec will evaluate the tests defined for the git cookbook.
 
@@ -24,9 +24,9 @@ Here is an example of us changing into the directory for the git cookbook and ru
 5
 -
 
-Rspec allows you to specify one or more paths after the command. These can be individual test files or entire directories of test files. 
+Rspec allows you to specify one or more paths after the command. These can be individual test files or entire directories of test files.
 
-This example we are exercising the tests defined in the file spec-slash-unit-slash-default-underscore-dot-spec and all the examples in all the test files found in spec-slash-unit-slash-windows.
+In this example we are exercising the tests defined in the file spec-slash-unit-slash-default-underscore-dot-spec and all the examples in all the test files found in spec-slash-unit-slash-windows.
 
 -
 
@@ -72,7 +72,7 @@ Failed examples:
 rspec ./spec/recipes/default_spec.rb:29 # ark::default sets default attributes prefix root
 ```
 
-Upon completion of the run if there are any failures they will be displayed. 
+Upon completion of the run if there are any failures they will be displayed.
 
 -
 10
@@ -84,9 +84,9 @@ Failures are numbered and use the language from the test file as the description
 11
 -
 
-After the description the error will be displayed to you. It often times repeats the expectation that you have defined. Then it will show you the expected value and the got (the value that came back from the execution) value.
+After the description the error will be displayed to you. It often times repeats the expectation that you have defined. Then it will show you the expected value and the got value -- the value that came back from the execution.
 
-In this example the test expected a node attribute to return the value slash-user-slash-local. Instead we find that the node attribute is being set incorrectly as it returns slash-user-slash-L-Space-OCAL was returned.
+In this example the test expected a node attribute to return the value slash-user-slash-local. Instead we find that the node attribute is being set incorrectly as it returns slash-user-slash-L-Space-OCAL.
 
 -
 12
@@ -98,7 +98,7 @@ The position of the failure will be displayed by outputting the file name follow
 13
 -
 
-After the failures RSpect displays a summary of the results. Included is the time it took to execute the tests. How many passed, failured, and are marked as pending.
+RSpec displays a summary of the results. Included is the time it took to execute the tests. How many passed, failed, and are marked as pending.
 
 In this example 83 tests were found; 82 passed; 1 failed.
 
@@ -123,4 +123,3 @@ In this example we are changing into the directory of the ark cookbook and then 
 RSpec also supports color in the output when you provide the rspec command dash-dash-color or dash-C. This will display failing examples in red, and pending examples in yellow.
 
 In this example we changed into the redis cookbook's directory and ran rspec against all the tests in the spec directory while displaying colors to assist us with reading the output.
-
