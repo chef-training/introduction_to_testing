@@ -22,30 +22,22 @@ Please refer to the [issues](https://github.com/learnchef/test_driven_developmen
 
 ## [03](scene-rubocop-command_line.md) Rubocop - Command Line
 
-## [04](scene-rubocop-summary.md) Rubocop - Summary
+## [04](scene-foodcritic-introduction.md) Foodcritic - Introduction
 
-## [05](scene-foodcritic-introduction.md) Foodcritic - Introduction
+## [05](scene-foodcritic-command_line.md) Foodcritic - Command Line
 
-## [06](scene-foodcritic-command_line.md) Foodcritic - Command Line
+## [06](scene-chefspec-introduction.md) ChefSpec - Introduction
 
-## [07](scene-foodcritic-summary.md) Foodcritic - Summary
+## [07](scene-rspec-command_line.md) RSpec - Command Line
 
-## [08](scene-chefspec-introduction.md) ChefSpec - Introduction
+## [08](scene-rspec-language.md) RSpec - Language
 
-## [09](scene-rspec-command_line.md) RSpec - Command Line
+## [09](scene-chefspec-language.md) ChefSpec - Language
 
-## [10](scene-rspec-language.md) RSpec - Language
+## [10](scene-serverspec-introduction.md) ServerSpec - Introduction
 
-## [11](scene-chefspec-language.md) ChefSpec - Language
+## [11](scene-test_kitchen-command_line.md) Test Kitchen - Command Line
 
-## [12](scene-chefspec-summary.md) ChefSpec - Summary
+## [12](scene-serverspec-language.md) ServerSpec - Language
 
-## [13](scene-serverspec-introduction.md) ServerSpec - Introduction
-
-## [14](scene-test_kitchen-command_line.md) Test Kitchen - Command Line
-
-## [15](scene-serverspec-language.md) ServerSpec - Language
-
-## [16](scene-serverspec-summary.md) ServerSpec - Summary
-
-## [17](scene-workstation-setup.md) Workstation Setup
+## [13](scene-workstation-setup.md) Workstation Setup
