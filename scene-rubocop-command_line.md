@@ -1,4 +1,4 @@
-## Introducing Rubocop
+## Introducing Rubocop Command Line
 
 Welcome to Introduction to Testing with Chef.
 

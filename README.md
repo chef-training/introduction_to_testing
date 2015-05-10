@@ -6,7 +6,7 @@ Each scene is a markdown script (scene file). Each scene will have an accompanyi
 
 Each scene is deliverable. Allowing for the development and refinement of scenes while the others may still need the initial script or slides.
 
-Please refer to the [issues](https://github.com/learnchef/test_driven_development/issues) to figure out what sections could use your attention. 
+Please refer to the [issues](https://github.com/learnchef/test_driven_development/issues) to figure out what sections could use your attention.
 
 * Edit the scene text - A lot of the early scenes have had at least a second review but could benefit from more edits. The later scenes are less refined and still needing more major reworking (e.g. Scene 10 on ChefSpec and ServerSpec).
 
@@ -16,44 +16,28 @@ Please refer to the [issues](https://github.com/learnchef/test_driven_developmen
 
 # Our Play
 
-## [01](scene_01.md) The Importance of Cookbook Style and Correctness
+## [01](scene-introduction.md) The Importance of Cookbook Style and Correctness
 
-## [02](scene_02.md) Rubocop - Intro
+## [02](scene-rubocop-introduction.md) Rubocop - Introduction
 
-## [03](scene_03.md) Rubocop
+## [03](scene-rubocop-command_line.md) Rubocop - Command Line
 
-## [04](scene_04.md) Rubocop - Exercise
+## [04](scene-foodcritic-introduction.md) Foodcritic - Introduction
 
-## [05](scene_05.md) Rubocop - Summary
+## [05](scene-foodcritic-command_line.md) Foodcritic - Command Line
 
-## [06](scene_06.md) Foodcritic - Intro
+## [06](scene-chefspec-introduction.md) ChefSpec - Introduction
 
-## [07](scene_07.md) Foodcritic
+## [07](scene-rspec-command_line.md) RSpec - Command Line
 
-## [08](scene_08.md) Foodcritic - Exercise
+## [08](scene-rspec-language.md) RSpec - Language
 
-## [09](scene_09.md) Foodcritic - Summary
+## [09](scene-chefspec-language.md) ChefSpec - Language
 
-## [10](scene_10.md) ChefSpec - Intro
+## [10](scene-serverspec-introduction.md) ServerSpec - Introduction
 
-## [11](scene_11.md) RSpec - Application
+## [11](scene-test_kitchen-command_line.md) Test Kitchen - Command Line
 
-## [12](scene_12.md) RSpec - Language
+## [12](scene-serverspec-language.md) ServerSpec - Language
 
-## [13](scene_13.md) ChefSpec
-
-## [14](scene_14.md) ChefSpec - Exercise
-
-## [15](scene_15.md) ChefSpec - Summary
-
-## [16](scene_16.md) ServerSpec - Intro
-
-## [17](scene_17.md) Test Kitchen - Tool
-
-## [18](scene_18.md) ServerSpec
-
-## [19](scene_19.md) ServerSpec - Exercise
-
-## [20](scene_20.md) ServerSpec - Summary
-
-## [21](scene_21.md) Workstation Setup
+## [13](scene-workstation-setup.md) Workstation Setup
