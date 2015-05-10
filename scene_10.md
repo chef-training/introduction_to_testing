@@ -6,7 +6,7 @@ Welcome to Introduction to Testing with Chef.
 
 -
 
-In this section we will be introducing and using ChefSpec, a testing tool. 
+In this section we will be introducing and using ChefSpec, a testing tool.
 
 -
 
@@ -24,11 +24,11 @@ One reason for testing is important is because: Ruby is a dynamically typed prog
 
 -
 
-Prior to ChefSpec the cookbook development workflows delayed the verification of your cookbook code until it was already released to the Chef Server and pulled down by a node during a chef-client run. 
+Prior to ChefSpec the cookbook development workflows delayed the verification of your cookbook code until it was already released to the Chef Server and pulled down by a node during a chef-client run.
 
 -
 
-Running a cookbook in this manner gives great feedback on its success at the cost of the time required for each cookbook to be pushed through this workflow and the complications of other dependencies.
+Testing a cookbook in this manner gives great feedback on its success at the cost of the time required for each cookbook to be pushed through this workflow.
 
 -
 8
@@ -82,4 +82,4 @@ During this section you will learn and demonstrate how to test cookbooks effecti
 
 * using ChefSpec and RSpec to define tests for recipes
 * executing those tests with the rspec command
-* and gain a basic understanding of test-driven development.
+* and experiencing the process of test-driven development.
